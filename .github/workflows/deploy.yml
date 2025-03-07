@@ -1,0 +1,51 @@
+name: Auto Deploy Vite Project
+
+on:
+  push:
+    branches: [ "master" ]  # 监听的分支
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤1：拉取代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 步骤2：安装Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20  # 与项目版本一致
+
+      # 步骤3：安装依赖并构建
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
+
+      # 步骤4：配置SSH环境
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/*
+
+      # 步骤5：通过Rsync部署到临时目录
+      - name: Deploy to Server (Stage)
+        uses: burnett01/rsync-deployments@5.2.3
+        with:
+          switches: -avz --delete  # 归档模式+删除多余文件
+          path: dist/              # Vite构建输出目录
+          remote_path: /home/snow/deploy/  # 服务器上的临时目录
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_port: ${{ secrets.SSH_PORT }}
+          remote_user: ${{ secrets.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # 步骤6：触发服务器端同步到网站目录
+      - name: Trigger Final Sync
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} \
+            "sudo /usr/local/bin/sync-to-webroot"
