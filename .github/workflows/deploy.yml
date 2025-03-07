@@ -34,7 +34,7 @@ jobs:
 
       # 步骤5：通过Rsync部署到临时目录
       - name: Deploy to Server (Stage)
-        uses: burnett01/rsync-deployments@5.2.3
+        uses: burnett01/rsync-deployments@7.0.2
         with:
           switches: -avz --delete  # 归档模式+删除多余文件
           path: dist/              # Vite构建输出目录
