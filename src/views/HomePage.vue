@@ -30,11 +30,11 @@
 
     <section class="section featured-projects">
       <div class="container">
-        <h2 class="section-title">精选项目</h2>
+        <h2 class="section-title">项目展示</h2>
         <div class="projects-grid">
           <ProjectCard
-              v-for="(project, index) in featuredProjects"
-              :key="index"
+              v-for="project in randomProjects"
+              :key="project.id"
               :project="project"
           />
         </div>
@@ -49,24 +49,20 @@
       <div class="container">
         <h2 class="section-title">技能概览</h2>
         <div class="skills-container">
-          <div class="skill-category glass-effect">
-            <h3><i class="fas fa-code"></i> 前端开发</h3>
+          <div
+              v-for="category in homepageSkillCategories"
+              :key="category.id"
+              class="skill-category glass-effect"
+          >
+            <h3><i :class="category.icon"></i> {{ category.name }}</h3>
             <div class="skill-tags">
-              <span class="skill-tag">HTML5 / CSS3</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">Vue.js</span>
-              <span class="skill-tag">响应式设计</span>
-            </div>
-          </div>
-
-          <div class="skill-category glass-effect">
-            <h3><i class="fas fa-paint-brush"></i> 语言</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">C++</span>
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">Markdown</span>
-              <span class="skill-tag">Vue</span>
+              <span
+                  v-for="skill in category.skills"
+                  :key="skill.id"
+                  class="skill-tag"
+              >
+                {{ skill.name }}
+              </span>
             </div>
           </div>
         </div>
@@ -80,37 +76,27 @@
 
 <script>
 import ProjectCard from '@/components/ProjectCard.vue'
+import { useProjectsStore } from '@/stores/projectsStore'
+import { useSkillsStore } from '@/stores/skillsStore'
+import { storeToRefs } from 'pinia'
+import { ref, computed, onMounted } from 'vue'
 
 export default {
   name: 'HomePage',
   components: {
     ProjectCard
   },
-  data() {
+  setup() {
+    const projectsStore = useProjectsStore()
+    const skillsStore = useSkillsStore()
+
+    // 使用计算属性获取随机项目，确保响应性
+    const randomProjects = computed(() => projectsStore.randomProjects)
+    const { homepageSkills: homepageSkillCategories } = storeToRefs(skillsStore)
+
     return {
-      featuredProjects: [
-        {
-          title: 'Authority-System-vue',
-          description: '基于vue-admin-element二次开发的后台权限管理系统前端部分',
-          technologies: ['Vue.js', 'Element-UI', 'Vuex', 'Vue-router'],
-          demoUrl: null,
-          codeUrl: 'https://gitee.com/SnowDreamXUE/authority-system-vue'
-        },
-        {
-          title: 'Authority-System',
-          description: '前后端分离的权限管理系统，包含⽤⼾管理、菜单管理、部⻔管理和⻆⾊管理功能。采⽤ SpringBoot 和 SpringSecurity 实现认证授权',
-          technologies: ['Java', 'SpringBoot', 'SpringSecurity', 'MybatisPlus', 'Redis'],
-          demoUrl: null,
-          codeUrl: 'https://gitee.com/SnowDreamXUE/authority-system'
-        },
-        {
-          title: 'BiliBiliDownloader',
-          description: 'BiliBiliDownloader 是⼀款专注于哔哩哔哩（B站）视频下载的⼯具，⽀持扫码登录、视频链接解析以及视频⾳频分离下载',
-          technologies: ['Vue.js', 'SpringBoot', 'ffmpeg'],
-          demoUrl: null,
-          codeUrl: 'https://github.com/SnowDreamXUE/BiliBliliDownloader'
-        },
-      ]
+      randomProjects,
+      homepageSkillCategories
     }
   },
   mounted() {

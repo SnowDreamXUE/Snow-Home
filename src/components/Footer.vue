@@ -45,7 +45,7 @@
           © {{ new Date().getFullYear() }} SnowDreamXUE. All rights reserved.
         </div>
         <div class="update-info">
-          最后更新于: 2025-03-07
+          最后更新于: 2025-03-09
         </div>
       </div>
     </div>

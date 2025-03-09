@@ -46,48 +46,20 @@
         <h2 class="section-title">专业技能</h2>
 
         <div class="skills-categories">
-          <div class="skill-category glass-effect">
-            <h3><i class="fas fa-paint-brush"></i> 语言</h3>
+          <div
+              v-for="category in skillCategories"
+              :key="category.id"
+              class="skill-category glass-effect"
+          >
+            <h3><i :class="category.icon"></i> {{ category.name }}</h3>
             <div class="skill-tags">
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">C++</span>
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">Vue</span>
-              <span class="skill-tag">Html</span>
-              <span class="skill-tag">Css</span>
-              <span class="skill-tag">JavaScript</span>
-            </div>
-          </div>
-
-          <div class="skill-category glass-effect">
-            <h3><i class="fas fa-code"></i> 前端开发</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">HTML5 / CSS3</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">Vue.js</span>
-              <span class="skill-tag">Element-UI</span>
-              <span class="skill-tag">Webpack</span>
-              <span class="skill-tag">响应式设计</span>
-            </div>
-          </div>
-
-          <div class="skill-category glass-effect">
-            <h3><i class="fas fa-code"></i> 后端开发</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">SpringBoot</span>
-              <span class="skill-tag">Mysql</span>
-              <span class="skill-tag">MyBatisPlus</span>
-            </div>
-          </div>
-
-          <div class="skill-category glass-effect">
-            <h3><i class="fas fa-cogs"></i> 其他技能</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">Axure</span>
-              <span class="skill-tag">Markdown</span>
-              <span class="skill-tag">团队协作</span>
+              <span
+                  v-for="skill in category.skills"
+                  :key="skill.id"
+                  class="skill-tag"
+              >
+                {{ skill.name }}
+              </span>
             </div>
           </div>
         </div>
@@ -97,8 +69,19 @@
 </template>
 
 <script>
+import { useSkillsStore } from '@/stores/skillsStore'
+import { storeToRefs } from 'pinia'
+
 export default {
-  name: 'AboutPage'
+  name: 'AboutPage',
+  setup() {
+    const skillsStore = useSkillsStore()
+    const { skillCategories } = storeToRefs(skillsStore)
+
+    return {
+      skillCategories
+    }
+  }
 }
 </script>
 

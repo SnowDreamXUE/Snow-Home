@@ -36,79 +36,36 @@
 
 <script>
 import ProjectCard from '@/components/ProjectCard.vue'
+import {useProjectsStore} from '@/stores/projectsStore'
+import {storeToRefs} from 'pinia'
+import {ref,computed} from 'vue'
 
 export default {
   name: 'ProjectsPage',
   components: {
     ProjectCard
   },
-  data() {
+  setup() {
+    const projectsStore = useProjectsStore()
+    const {categories} = storeToRefs(projectsStore)
+
+    const activeCategory = ref('全部')
+
+    const filteredProjects = computed(() => {
+      return projectsStore.getProjectsByCategory(activeCategory.value)
+    })
+
+    function filterProjects(category) {
+      activeCategory.value = category;
+    }
+
     return {
-      activeCategory: '全部',
-      categories: ['全部', '前端', '后端', 'Hexo'],
-      projects: [
-        {
-          title: 'Authority-System-vue',
-          description: '基于vue-admin-element二次开发的后台权限管理系统前端部分',
-          technologies: ['Vue.js', 'Element-UI', 'Vuex', 'Vue-router'],
-          category: ['前端'],
-          demoUrl: null,
-          codeUrl: 'https://gitee.com/SnowDreamXUE/authority-system-vue'
-        },
-        {
-          title: 'Authority-System',
-          description: '前后端分离的权限管理系统，包含⽤⼾管理、菜单管理、部⻔管理和⻆⾊管理功能。采⽤ SpringBoot 和 SpringSecurity 实现认证授权',
-          technologies: ['Java', 'SpringBoot', 'SpringSecurity', 'MybatisPlus', 'Redis'],
-          category: ['后端'],
-          demoUrl: null,
-          codeUrl: 'https://gitee.com/SnowDreamXUE/authority-system'
-        },
-        {
-          title: 'BiliBiliDownloader',
-          description: 'BiliBiliDownloader 是⼀款专注于哔哩哔哩（B站）视频下载的⼯具，⽀持扫码登录、视频链接解析以及视频⾳频分离下载',
-          technologies: ['Vue.js', 'SpringBoot', 'ffmpeg'],
-          category: ['前端', '后端'],
-          demoUrl: null,
-          codeUrl: 'https://github.com/SnowDreamXUE/BiliBliliDownloader'
-        },
-        {
-          title: 'Vue-Study-Demo',
-          description: '在学习Vue过程中，制作的一些小项目',
-          technologies: ['Vue.js', 'Element-UI'],
-          category: ['前端'],
-          demoUrl: null,
-          codeUrl: 'https://github.com/SnowDreamXUE/vue-study-demo'
-        },
-        {
-          title: 'Hexo博客',
-          description: '使用Hexo搭建的博客，加入了Github-Action完成自动部署',
-          technologies: ['Hexo', 'Github-Action'],
-          category: ['Hexo'],
-          demoUrl: null,
-          codeUrl: 'https://github.com/SnowDreamXUE/SnowDreamXUE.github.io'
-        }
-      ]
+      activeCategory,
+      categories,
+      filteredProjects,
+      filterProjects
     }
   },
-  computed: {
-    filteredProjects() {
-      if (this.activeCategory === '全部') {
-        return this.projects;
-      }
-      return this.projects.filter(project => {
-        // 统一将分类转为数组格式
-        const categories = Array.isArray(project.category)
-            ? project.category
-            : [project.category];
-        return categories.includes(this.activeCategory);
-      });
-    }
-  },
-  methods: {
-    filterProjects(category) {
-      this.activeCategory = category;
-    }
-  }
 }
 </script>
 
