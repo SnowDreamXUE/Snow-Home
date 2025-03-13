@@ -53,8 +53,18 @@ export const useProjectsStore = defineStore('projects', {
                 codeUrl: 'https://github.com/SnowDreamXUE/SnowDreamXUE.github.io',
                 featured: false
             },
+            {
+                id: 6,
+                title: 'BiliBiliDownloader-electron',
+                description: 'BiliBiliDownloader-electron使用electron重新构建BiliBiliDownloader，加入aria2c下载工具，支持扫码登录，视频解析下载',
+                technologies: ['Vue.js', 'electron', 'ffmpeg', 'aria2c'],
+                category: ['前端', 'Electron'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/BiliBiliDownloader-electron',
+                featured: false
+            },
         ],
-        categories: ['全部', '前端', '后端', 'Hexo'],
+        categories: ['全部', '前端', '后端', 'Hexo', 'Electron'],
     }),
 
     getters: {
