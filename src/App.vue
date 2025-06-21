@@ -24,6 +24,11 @@ export default {
     Header,
     Footer,
     FlyingLines
+  },
+  computed: {
+    is404Route() {
+      return this.$route.name === 'NotFound';
+    }
   }
 }
 </script>
@@ -40,6 +45,11 @@ export default {
   flex: 1;
   position: relative;
   z-index: 2; /* 确保内容在Canvas上面 */
+}
+
+.main-content.full-page {
+  padding: 0;
+  margin: 0;
 }
 
 .fade-enter-active,
