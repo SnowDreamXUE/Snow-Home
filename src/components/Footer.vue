@@ -44,8 +44,11 @@
         <div class="copyright">
           © {{ new Date().getFullYear() }} SnowDreamXUE. All rights reserved.
         </div>
+        <div class="icp">
+          <a href="https://icp.gov.moe/?keyword=20251505" target="_blank">萌ICP备20251505号</a>
+        </div>
         <div class="update-info">
-          最后更新于: 2025-03-09
+          最后更新于: 2025-06-22
         </div>
       </div>
     </div>
@@ -170,6 +173,38 @@ export default {
   justify-content: space-between;
   color: #777;
   font-size: 0.9rem;
+}
+
+.icp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icp a {
+  color: #777;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.icp a:hover {
+  color: var(--primary-color);
+}
+
+.icp a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gradient-bg);
+  transition: width 0.3s ease;
+}
+
+.icp a:hover::before {
+  width: 100%;
 }
 
 .update-info {
