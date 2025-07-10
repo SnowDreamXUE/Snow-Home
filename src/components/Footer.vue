@@ -48,7 +48,7 @@
           <a href="https://icp.gov.moe/?keyword=20251505" target="_blank">萌ICP备20251505号</a>
         </div>
         <div class="update-info">
-          最后更新于: 2025-06-22
+          最后更新于: 2025-07-10
         </div>
       </div>
     </div>
@@ -99,23 +99,26 @@ export default {
 .footer-desc {
   color: #666;
   margin-bottom: 1.2rem;
+  line-height: 1.5;
 }
 
 .footer-social {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .footer-social a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background-color: rgba(140, 158, 255, 0.1);
   border-radius: 50%;
   color: var(--primary-color);
   transition: all 0.3s ease;
+  font-size: 1.1rem;
 }
 
 .footer-social a:hover {
@@ -153,13 +156,15 @@ export default {
 }
 
 .links-group ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .links-group ul a {
   text-decoration: none;
   color: #666;
   transition: color 0.3s ease;
+  line-height: 1.4;
+  word-break: break-all;
 }
 
 .links-group ul a:hover {
@@ -171,8 +176,11 @@ export default {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #777;
   font-size: 0.9rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .icp {
@@ -211,16 +219,74 @@ export default {
   font-style: italic;
 }
 
+/* Mobile Optimizations */
 @media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0 1rem;
+  }
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
+    text-align: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-social a {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: left;
   }
 
   .footer-bottom {
     flex-direction: column;
     text-align: center;
-    gap: 0.5rem;
+    gap: 1rem;
+  }
+
+  .footer-bottom > div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 1.5rem 0 1rem;
+  }
+
+  .footer-logo {
+    font-size: 1.3rem;
+  }
+
+  .footer-desc {
+    font-size: 0.9rem;
+  }
+
+  .footer-social a {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .links-group h4 {
+    font-size: 1rem;
+  }
+
+  .links-group ul a {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
   }
 }
 </style>

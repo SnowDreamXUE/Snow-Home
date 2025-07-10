@@ -88,6 +88,7 @@ export default {
   margin: 0 auto;
   font-size: 1.1rem;
   opacity: 0.9;
+  line-height: 1.5;
 }
 
 .projects-filter {
@@ -108,34 +109,84 @@ export default {
 }
 
 .filter-btn {
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.5rem;
   background-color: var(--white);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filter-btn:hover, .filter-btn.active {
   background: var(--gradient-bg);
   color: white;
   border-color: transparent;
+  transform: translateY(-2px);
 }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
 }
 
+/* Mobile Optimizations */
 @media (max-width: 768px) {
+  .page-header {
+    padding: 3rem 0;
+  }
+
   .page-title {
     font-size: 2rem;
   }
 
+  .page-description {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
   .projects-filter {
     margin-bottom: 2rem;
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+
+  .filter-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+    min-width: 80px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 2.5rem 0;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .projects-filter {
+    padding: 0.8rem;
+    gap: 0.6rem;
+  }
+
+  .filter-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    flex: 1;
+    min-width: 70px;
   }
 }
 </style>

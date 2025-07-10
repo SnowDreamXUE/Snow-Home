@@ -107,12 +107,13 @@ export default {
   margin: 0 auto;
   font-size: 1.1rem;
   opacity: 0.9;
+  line-height: 1.5;
 }
 
 .profile-content {
   display: flex;
   gap: 3rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .profile-image {
@@ -153,6 +154,7 @@ export default {
 
 .profile-text p {
   margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
 .email-container {
@@ -163,13 +165,15 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.5rem;
+  padding: 1rem 1.5rem;
   background-color: rgba(140, 158, 255, 0.1);
   border-radius: var(--border-radius);
   text-decoration: none;
   color: var(--primary-color);
   font-weight: 500;
   transition: all 0.3s ease;
+  min-height: 44px;
+  word-break: break-all;
 }
 
 .email-link:hover {
@@ -189,7 +193,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1.2rem;
   background-color: var(--white);
   border-radius: var(--border-radius);
   text-decoration: none;
@@ -198,6 +202,7 @@ export default {
   transition: all 0.3s ease;
   box-shadow: var(--shadow);
   margin-bottom: 0.5rem;
+  min-height: 44px;
 }
 
 .social-link:hover {
@@ -248,10 +253,30 @@ export default {
   transform: translateY(-3px);
 }
 
+/* Mobile Optimizations */
 @media (max-width: 768px) {
+  .page-header {
+    padding: 3rem 0;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-description {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
   .profile-content {
     flex-direction: column;
     text-align: center;
+    gap: 2rem;
+  }
+
+  .profile-image {
+    flex: 0 0 auto;
+    align-self: center;
   }
 
   .avatar-container {
@@ -259,18 +284,77 @@ export default {
     height: 250px;
   }
 
+  .profile-text {
+    text-align: left;
+  }
+
   .email-link {
     justify-content: center;
+    width: 100%;
   }
 
   .social-links {
     justify-content: center;
   }
+
+  .social-link {
+    flex: 1;
+    min-width: 140px;
+    justify-content: center;
+  }
+
+  .skill-category {
+    padding: 1.2rem;
+  }
+
+  .skill-tags {
+    gap: 0.8rem;
+  }
+
+  .skill-tag {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
+  .page-header {
+    padding: 2.5rem 0;
+  }
+
   .page-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .avatar-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .profile-text {
+    padding: 1.5rem;
+  }
+
+  .social-links {
+    flex-direction: column;
+  }
+
+  .social-link {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .skill-category {
+    padding: 1rem;
+  }
+
+  .skill-category h3 {
+    font-size: 1.1rem;
+  }
+
+  .skill-tag {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 </style>

@@ -4,11 +4,24 @@
       <div class="logo">
         <router-link to="/">SnowDreamXUE</router-link>
       </div>
-      <nav class="nav">
+
+      <!-- Mobile menu button -->
+      <button
+          class="mobile-menu-btn"
+          @click="toggleMobileMenu"
+          :class="{ active: isMobileMenuOpen }"
+          aria-label="Toggle navigation menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav" :class="{ 'mobile-open': isMobileMenuOpen }">
         <ul class="nav-list">
-          <li><router-link to="/" :class="{ active: $route.path === '/' }">首页</router-link></li>
-          <li><router-link to="/projects" :class="{ active: $route.path === '/projects' }">项目经历</router-link></li>
-          <li><router-link to="/about" :class="{ active: $route.path === '/about' }">关于我</router-link></li>
+          <li><router-link to="/" :class="{ active: $route.path === '/' }" @click="closeMobileMenu">首页</router-link></li>
+          <li><router-link to="/projects" :class="{ active: $route.path === '/projects' }" @click="closeMobileMenu">项目经历</router-link></li>
+          <li><router-link to="/about" :class="{ active: $route.path === '/about' }" @click="closeMobileMenu">关于我</router-link></li>
         </ul>
       </nav>
     </div>
@@ -18,6 +31,27 @@
 <script>
 export default {
   name: 'Header',
+  data() {
+    return {
+      isMobileMenuOpen: false
+    }
+  },
+  methods: {
+    toggleMobileMenu() {
+      this.isMobileMenuOpen = !this.isMobileMenuOpen
+    },
+    closeMobileMenu() {
+      this.isMobileMenuOpen = false
+    }
+  },
+  mounted() {
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!this.$el.contains(e.target)) {
+        this.isMobileMenuOpen = false
+      }
+    })
+  }
 }
 </script>
 
@@ -26,7 +60,7 @@ export default {
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 80px; /* 固定高度以便于首页hero区域正确计算 */
+  height: 80px;
   display: flex;
   align-items: center;
   background-color: var(--white);
@@ -37,6 +71,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .logo a {
@@ -47,6 +82,40 @@ export default {
   background: var(--gradient-bg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101;
+}
+
+.mobile-menu-btn span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 .nav-list {
@@ -86,18 +155,52 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .header {
-    height: auto;
+  .mobile-menu-btn {
+    display: flex;
   }
 
-  .header-container {
-    flex-direction: column;
-    padding: 1rem 0;
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .nav.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 
   .nav-list {
-    margin-top: 1rem;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0;
+  }
+
+  .nav-list li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-list li:last-child {
+    border-bottom: none;
+  }
+
+  .nav-list a {
+    display: block;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .nav-list a::after {
+    display: none;
   }
 }
 </style>

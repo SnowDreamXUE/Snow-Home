@@ -90,7 +90,6 @@ export default {
     const projectsStore = useProjectsStore()
     const skillsStore = useSkillsStore()
 
-    // 使用计算属性获取随机项目，确保响应性
     const randomProjects = computed(() => projectsStore.randomProjects)
     const { homepageSkills: homepageSkillCategories } = storeToRefs(skillsStore)
 
@@ -100,7 +99,6 @@ export default {
     }
   },
   mounted() {
-    // 打字机效果在组件挂载后启动
     this.initTypewriter();
   },
   methods: {
@@ -109,10 +107,10 @@ export default {
       const typewriterText = this.$refs.typewriterText;
 
       if (typewriterText) {
-        typewriterText.textContent = ''; // 清空内容以准备打字效果
+        typewriterText.textContent = '';
 
         let i = 0;
-        const speed = 150; // 打字速度
+        const speed = 150;
 
         function type() {
           if (i < text.length) {
@@ -122,8 +120,7 @@ export default {
           }
         }
 
-        // 开始打字效果
-        setTimeout(type, 1000); // 延迟1秒后开始
+        setTimeout(type, 1000);
       }
     }
   }
@@ -139,7 +136,7 @@ export default {
   color: white;
   position: relative;
   overflow: hidden;
-  margin-top: -80px; /* 抵消header高度，使hero真正全屏 */
+  margin-top: -80px;
   padding-top: 80px;
 }
 
@@ -174,19 +171,18 @@ export default {
   font-weight: 700;
   margin-bottom: 1rem;
   display: flex;
-  flex-direction: column; /* 确保名字在不同行 */
+  flex-direction: column;
   gap: 0.5rem;
 }
 
-/* 打字机效果相关样式 - 新的实现方式 */
 .highlight {
   color: var(--secondary-color);
   position: relative;
-  display: block; /* 确保在新行显示 */
+  display: block;
 }
 
 .typewriter-container {
-  display: inline-flex; /* 使文本和光标在同一行 */
+  display: inline-flex;
   align-items: center;
   position: relative;
 }
@@ -221,6 +217,25 @@ export default {
 .hero-buttons {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--gradient-bg);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 140px;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline {
@@ -258,10 +273,9 @@ export default {
   object-fit: cover;
 }
 
-/* 其余样式保持不变 */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
@@ -273,7 +287,7 @@ export default {
 
 .skills-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 }
@@ -282,6 +296,13 @@ export default {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 1.5rem;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .skill-category h3 {
@@ -308,45 +329,120 @@ export default {
   font-weight: 500;
 }
 
+/* Mobile Optimizations */
 @media (max-width: 768px) {
+  .hero {
+    margin-top: -80px;
+    padding-top: 100px;
+  }
+
   .hero-container {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     height: auto;
     min-height: calc(100vh - 80px);
+    gap: 2rem;
   }
 
   .hero-content {
     max-width: 100%;
-    margin-bottom: 3rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     align-items: center;
+    line-height: 1.2;
   }
 
   .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-buttons {
     justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 120px;
   }
 
   .hero-avatar {
     flex: 0 0 auto;
+    padding: 1rem;
   }
 
   .avatar-container {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .skills-container {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .skill-category {
+    padding: 1.2rem;
+  }
+
+  .skill-tags {
+    gap: 0.6rem;
+  }
+
+  .skill-tag {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .avatar-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .hero-content {
+    padding: 1rem;
   }
 }
 </style>
