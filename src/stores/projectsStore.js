@@ -63,6 +63,36 @@ export const useProjectsStore = defineStore('projects', {
                 codeUrl: 'https://github.com/SnowDreamXUE/BiliBiliDownloader-electron',
                 featured: false
             },
+            {
+                id: 7,
+                title: 'SnowBlog-vue',
+                description: 'SnowBlog Vue 是一个功能完整的个人博客前端应用，采用现代化的技术栈构建，提供了优雅的用户界面和流畅的用户体验。本项目是 SnowBlog 博客系统的前台展示部分。',
+                technologies: ['Vue.js', 'Element-UI', 'Vuex', 'Vue-router'],
+                category: ['前端'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/SnowBlog-vue',
+                featured: false
+            },
+            {
+                id: 8,
+                title: 'SnowBlog-back',
+                description: 'SnowBlog 后台管理系统是一个功能完整的博客内容管理平台，采用现代化的技术栈构建，为博客管理员提供直观易用的管理界面。本项目是 SnowBlog 博客系统的后台管理部分。',
+                technologies:  ['Vue.js', 'Element-UI', 'Vuex', 'Vue-router'],
+                category: ['前端'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/SnowBlog-back',
+                featured: false
+            },
+            {
+                id: 9,
+                title: 'SnowBlog-java',
+                description: 'SnowBlog Java 是一个功能完整的个人博客后端服务，采用 Spring Boot + MyBatis Plus 技术栈构建，提供了完整的 RESTful API 接口。本项目是 SnowBlog 博客系统的核心后端服务。',
+                technologies: ['Java', 'Spring Boot', 'MyBatis Plus', 'Jwt'],
+                category: ['后端'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/SnowBlog-java',
+                featured: false
+            }
         ],
         categories: ['全部', '前端', '后端', 'Hexo', 'Electron'],
     }),
