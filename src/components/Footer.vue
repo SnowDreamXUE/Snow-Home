@@ -3,7 +3,9 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-info">
-          <div class="footer-logo">SnowDreamXUE</div>
+          <div class="footer-logo">
+            <img src="../assets/img/logo.png" alt="SnowDreamXUE" class="logo-img">
+          </div>
           <p class="footer-desc">我只想在雪夜的樱花树下做个好梦</p>
           <div class="footer-social">
             <a href="https://github.com/SnowDreamXUE" target="_blank" aria-label="GitHub">
@@ -25,9 +27,15 @@
           <div class="links-group">
             <h4>导航</h4>
             <ul>
-              <li><router-link to="/">首页</router-link></li>
-              <li><router-link to="/projects">项目经历</router-link></li>
-              <li><router-link to="/about">关于我</router-link></li>
+              <li>
+                <router-link to="/">首页</router-link>
+              </li>
+              <li>
+                <router-link to="/projects">项目经历</router-link>
+              </li>
+              <li>
+                <router-link to="/about">关于我</router-link>
+              </li>
             </ul>
           </div>
           <div class="links-group">
@@ -48,7 +56,7 @@
           <a href="https://icp.gov.moe/?keyword=20251505" target="_blank">萌ICP备20251505号</a>
         </div>
         <div class="update-info">
-          最后更新于: 2025-08-01
+          最后更新于: 2025-08-10
         </div>
       </div>
     </div>
@@ -94,6 +102,11 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.8rem;
+  height: 30px;
+}
+
+.logo-img {
+  width: 200px;
 }
 
 .footer-desc {

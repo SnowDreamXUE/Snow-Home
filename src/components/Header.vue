@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container header-container">
       <div class="logo">
-        <router-link to="/">SnowDreamXUE</router-link>
+        <router-link to="/"><img src="../assets/img/logo.png" alt="#" class="logo-img"></router-link>
       </div>
 
       <!-- Mobile menu button -->
@@ -74,6 +74,12 @@ export default {
   position: relative;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
 .logo a {
   font-size: 1.5rem;
   font-weight: 700;
@@ -82,6 +88,12 @@ export default {
   background: var(--gradient-bg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.logo-img {
+  height: 40px;
 }
 
 .mobile-menu-btn {
