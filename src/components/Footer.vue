@@ -56,7 +56,7 @@
           <a href="https://icp.gov.moe/?keyword=20251505" target="_blank">萌ICP备20251505号</a>
         </div>
         <div class="update-info">
-          最后更新于: 2025-08-10
+          最后更新于: 2025-09-28
         </div>
       </div>
     </div>

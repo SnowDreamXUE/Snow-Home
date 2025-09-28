@@ -44,6 +44,11 @@
       </div>
     </section>
 
+    <!-- 添加GitHub热力图 - 仅在桌面端显示 -->
+    <div class="container github-heatmap-container">
+      <GitHubHeatmap />
+    </div>
+
     <section class="section skills">
       <div class="container">
         <h2 class="section-title">专业技能</h2>
@@ -54,7 +59,7 @@
               :key="category.id"
               class="skill-category glass-effect"
           >
-            <h3><i :class="category.icon"></i> {{ category.name }}</h3>
+            <h3><i :class="category.icon"></i> <span>{{ category.name }}</span></h3>
             <div class="skill-tags">
               <span
                   v-for="skill in category.skills"
@@ -74,9 +79,13 @@
 <script>
 import { useSkillsStore } from '@/stores/skillsStore'
 import { storeToRefs } from 'pinia'
+import GitHubHeatmap from '@/components/GitHubHeatmap.vue'
 
 export default {
   name: 'AboutPage',
+  components: {
+    GitHubHeatmap
+  },
   setup() {
     const skillsStore = useSkillsStore()
     const { skillCategories } = storeToRefs(skillsStore)
@@ -229,6 +238,11 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  span {
+    height: 100%;
+    padding-top: 4px;
+  }
 }
 
 .skill-tags {
@@ -251,6 +265,10 @@ export default {
   background: var(--gradient-bg);
   color: white;
   transform: translateY(-3px);
+}
+
+.github-heatmap-container {
+  display: none;
 }
 
 /* Mobile Optimizations */
@@ -314,6 +332,17 @@ export default {
   .skill-tag {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
+  }
+
+  /* 在移动端隐藏GitHub热力图 */
+  .github-heatmap-container {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .github-heatmap-container {
+    display: block;
   }
 }
 
