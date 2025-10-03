@@ -11,7 +11,7 @@ export const useProjectsStore = defineStore('projects', {
                 category: ['前端'],
                 demoUrl: null,
                 codeUrl: 'https://gitee.com/SnowDreamXUE/authority-system-vue',
-                featured: true
+                featured: false
             },
             {
                 id: 2,
@@ -21,7 +21,7 @@ export const useProjectsStore = defineStore('projects', {
                 category: ['后端'],
                 demoUrl: null,
                 codeUrl: 'https://gitee.com/SnowDreamXUE/authority-system',
-                featured: true
+                featured: false
             },
             {
                 id: 3,
@@ -61,7 +61,7 @@ export const useProjectsStore = defineStore('projects', {
                 category: ['前端', 'Electron'],
                 demoUrl: null,
                 codeUrl: 'https://github.com/SnowDreamXUE/BiliBiliDownloader-electron',
-                featured: false
+                featured: true
             },
             {
                 id: 7,
@@ -92,6 +92,26 @@ export const useProjectsStore = defineStore('projects', {
                 demoUrl: null,
                 codeUrl: 'https://github.com/SnowDreamXUE/SnowBlog-java',
                 featured: false
+            },
+            {
+                id: 10,
+                title: 'EasyChat-vue',
+                description: '一款基于 Electron + Vue 3 开发的即时通讯桌面应用，模仿微信的交互设计和功能体验',
+                technologies: ['Vue3', 'Electron', 'Element-Plus', 'Pinia', 'WebSocket', 'ffmpeg'],
+                category: ['前端', 'Electron'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/chat-vue',
+                featured: true
+            },
+            {
+                id: 11,
+                title: 'EasyChat-java',
+                description: '一个基于 Spring Boot 和 Netty 构建的功能完整的即时通讯系统，提供实时消息传输、文件分享、群组聊天等核心功能。',
+                technologies: ['Java', 'Spring Boot', 'Netty', 'Redis', 'MySQL'],
+                category: ['后端'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/chat-vue',
+                featured: true
             }
         ],
         categories: ['全部', '前端', '后端', 'Hexo', 'Electron'],
@@ -106,13 +126,21 @@ export const useProjectsStore = defineStore('projects', {
         // 按类别筛选项目
         getProjectsByCategory: (state) => {
             return (category) => {
+                let filteredProjects;
                 if (category === '全部') {
-                    return state.projects;
+                    filteredProjects = state.projects;
+                } else {
+                    // 修改这里，使用Array.prototype.some()方法来判断项目是否属于指定的类别
+                    filteredProjects = state.projects.filter(project =>
+                        Array.isArray(project.category) && project.category.includes(category)
+                    );
                 }
-                // 修改这里，使用Array.prototype.some()方法来判断项目是否属于指定的类别
-                return state.projects.filter(project =>
-                    Array.isArray(project.category) && project.category.includes(category)
-                );
+                // 精选项目排序在前
+                return filteredProjects.sort((a, b) => {
+                    if (a.featured && !b.featured) return -1;
+                    if (!a.featured && b.featured) return 1;
+                    return 0;
+                });
             }
         },
 
