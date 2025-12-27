@@ -1,0 +1,9 @@
+```json
+{
+  "name":  "snow-home",
+  "compatibility_date": "2025-12-27",
+  "assets": {
+    "directory": "./dist"
+  }
+}
+```
