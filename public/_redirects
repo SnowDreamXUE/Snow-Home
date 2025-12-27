@@ -1,5 +1,3 @@
-# SPA 路由回退 - 对应 Nginx 的 try_files $uri $uri/ /index.html
 /*    /index.html   200
 
-# 404 错误页面处理
 /404.html   /404.html   404
