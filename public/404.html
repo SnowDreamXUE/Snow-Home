@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 - 页面未找到</title>
   <link href="/favicon.png" rel="icon">
+  <script>
+    // SPA 路由处理：如果是应用内的路由，重定向到 index.html 并保持路径
+    (function() {
+      const path = window.location.pathname;
+      const spaRoutes = ['/projects', '/about']; // 你的 SPA 路由列表
+
+      // 检查是否是 SPA 路由
+      const isSpaRoute = spaRoutes.some(route => path === route || path.startsWith(route + '/'));
+
+      if (isSpaRoute) {
+        // 保存当前路径和查询参数
+        const redirect = window.location.pathname + window.location.search + window.location.hash;
+        // 重定向到 index.html，并通过查询参数传递原始路径
+        window.location.replace('/?redirect=' + encodeURIComponent(redirect));
+      }
+    })();
+  </script>
   <style>
     * {
       margin: 0;

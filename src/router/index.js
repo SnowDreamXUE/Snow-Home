@@ -30,6 +30,18 @@ const router = createRouter({
     }
 })
 
+// 处理从 404.html 重定向过来的路由
+router.isReady().then(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get('redirect');
+
+    if (redirect) {
+        // 清除 URL 中的 redirect 参数，跳转到实际路由
+        window.history.replaceState({}, '', redirect);
+        router.replace(redirect);
+    }
+});
+
 // 添加全局导航守卫来处理404情况
 router.beforeEach((to, from, next) => {
     // 检查路由是否存在
