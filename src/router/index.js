@@ -18,16 +18,6 @@ const routes = [
         path: '/about',
         name: 'About',
         component: AboutPage
-    },
-    // 捕获所有未匹配的路由，重定向到静态 404 页面
-    {
-        path: '/:pathMatch(.*)*',
-        name: 'NotFound',
-        beforeEnter: () => {
-            // 使用 replace 跳转到静态 404 页面，避免历史记录问题
-            window.location.replace('/404.html');
-            return false; // 阻止路由继续
-        }
     }
 ]
 
@@ -39,5 +29,14 @@ const router = createRouter({
     }
 })
 
+// 全局路由守卫：未匹配的路由直接跳转到 /404.html
+router.beforeEach((to) => {
+    if (to.matched.length === 0) {
+        // 强制跳转到静态 404 页面，完全离开 Vue 应用
+        window.location.replace('/404.html');
+        // 返回 false 阻止 Vue Router 继续导航
+        return false;
+    }
+})
 
 export default router
