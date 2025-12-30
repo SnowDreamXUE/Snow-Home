@@ -34,14 +34,14 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     // 检查路由是否存在
     const matchedRoute = router.hasRoute(to.name);
-    
+
     // 如果路由路径不存在，重定向到404.html
-    if (to.name !== undefined && !matchedRoute || 
+    if (to.name !== undefined && !matchedRoute ||
         (to.matched.length === 0 && to.path !== '/')) {
         window.location.href = '/404.html';
         return;
     }
-    
+
     next();
 });
 
