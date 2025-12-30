@@ -56,7 +56,7 @@
           <a href="https://icp.gov.moe/?keyword=20251505" target="_blank">萌ICP备20251505号</a>
         </div>
         <div class="update-info">
-          最后更新于: 2025-10-03
+          最后更新于: {{ lastUpdateTime }}
         </div>
       </div>
     </div>
@@ -65,7 +65,12 @@
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  data() {
+    return {
+      lastUpdateTime: __LAST_UPDATE_TIME__
+    }
+  }
 }
 </script>
 
