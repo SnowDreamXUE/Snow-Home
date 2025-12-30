@@ -16,9 +16,10 @@ export async function onRequest(context) {
     return context.next();
   }
 
-  // 3. 如果请求 404.html，直接返回（保持独立的 404 页面）
-  if (pathname === '/404.html') {
-    return context.next();
+  // 3. 如果请求 404.html 或 /404，返回 404 页面
+  if (pathname === '/404.html' || pathname === '/404') {
+    // 直接返回 404.html 的内容
+    return context.env.ASSETS.fetch(new URL('/404.html', url.origin));
   }
 
   // 4. 如果请求根路径或 index.html，直接返回
