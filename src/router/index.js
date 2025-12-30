@@ -18,6 +18,16 @@ const routes = [
         path: '/about',
         name: 'About',
         component: AboutPage
+    },
+    // 捕获所有未匹配的路由，重定向到静态 404 页面
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        beforeEnter: () => {
+            // 使用 replace 跳转到静态 404 页面，避免历史记录问题
+            window.location.replace('/404.html');
+            return false; // 阻止路由继续
+        }
     }
 ]
 
@@ -29,19 +39,5 @@ const router = createRouter({
     }
 })
 
-// 添加全局导航守卫来处理404情况
-router.beforeEach((to, from, next) => {
-    // 检查路由是否存在
-    const matchedRoute = router.hasRoute(to.name);
-
-    // 如果路由路径不存在，重定向到404.html
-    if (to.name !== undefined && !matchedRoute ||
-        (to.matched.length === 0 && to.path !== '/')) {
-        window.location.href = '/404.html';
-        return;
-    }
-
-    next();
-});
 
 export default router
