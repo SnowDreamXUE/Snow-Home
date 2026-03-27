@@ -32,9 +32,6 @@
               <a href="https://blog.csdn.net/SnowDreamXUE" target="_blank" class="social-link">
                 <i class="fab fa-blogger"></i> CSDN博客
               </a>
-              <a href="https://blog.snowdreamxue.top" target="_blank" class="social-link">
-                <i class="fas fa-globe"></i> Hexo博客
-              </a>
               <a href="https://notion.snowdreamxue.top" target="_blank" class="social-link">
                 <i class="fas fa-globe"></i> Notion博客
               </a>
