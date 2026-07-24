@@ -14,9 +14,6 @@
             <a href="https://blog.csdn.net/SnowDreamXUE" target="_blank" aria-label="CSDN">
               <i class="fab fa-blogger"></i>
             </a>
-            <a href="https://blog.snowdreamxue.top" target="_blank" aria-label="个人博客">
-              <i class="fas fa-globe"></i>
-            </a>
             <a href="mailto:SnowDreamXUE@outlook.com" aria-label="Email">
               <i class="far fa-envelope"></i>
             </a>
