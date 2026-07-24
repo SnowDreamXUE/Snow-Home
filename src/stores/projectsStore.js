@@ -112,9 +112,29 @@ export const useProjectsStore = defineStore('projects', {
                 demoUrl: null,
                 codeUrl: 'https://github.com/SnowDreamXUE/chat-vue',
                 featured: true
+            },
+            {
+                id: 12,
+                title: 'Bili-skin',
+                description: '一个用于搜索并下载 Bilibili 装扮或收藏集素材的工具，支持 CLI 命令行版本和 GUI 图形界面版本，提供搜索、下载管理、暂停继续、失败重试等功能',
+                technologies: ['Python', 'PySide6', 'requests', 'PyInstaller'],
+                category: ['Python'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/Bili-skin',
+                featured: false
+            },
+            {
+                id: 13,
+                title: 'Snow-Tab',
+                description: '一个使用 Vue 3 + Vite 构建的谷歌浏览器新标签页扩展，支持自定义背景图片、搜索栏透明度设置，提供简洁优雅的界面设计，设置自动保存到本地存储',
+                technologies: ['Vue 3', 'Vite', 'TypeScript', 'CSS3'],
+                category: ['前端', 'Chrome扩展'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/Snow-Tab',
+                featured: false
             }
         ],
-        categories: ['全部', '前端', '后端', 'Hexo', 'Electron'],
+        categories: ['全部', '前端', '后端', 'Hexo', 'Electron', 'Python', 'Chrome扩展'],
     }),
 
     getters: {
