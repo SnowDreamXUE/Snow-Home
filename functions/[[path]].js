@@ -1,39 +1,45 @@
-// Cloudflare Pages Function - 处理 SPA 路由回退
-// 此文件会拦截所有请求，对于 SPA 路由返回 index.html
+// SPA 路由回退 - 兼容 Cloudflare Pages 与 EdgeOne Pages 两种运行时
+//
+// 判定逻辑（两个平台一致）：
+//   1. 静态资源 / API / 首页 → 交给平台静态资源服务
+//   2. /404.html、/404 → 返回 404 页面
+//   3. 其余路径（/projects、/about 等）→ 返回 index.html，由 Vue Router 接管
+//
+// 平台差异：
+//   - Cloudflare Pages：context.env.ASSETS 绑定可读取静态资源，context.next() 走默认静态流程
+//   - EdgeOne Pages：context 只有 request/params/env/waitUntil，无 ASSETS 和 next()；
+//     根级 catch-all 会拦截除 / 外的所有请求（含静态资源），需通过 fetch 子请求
+//     命中边缘缓存或回源获取静态资源（官方文档：函数子请求访问节点缓存/回源）
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   const pathname = url.pathname;
 
-  // 1. 如果是静态资源文件，直接放行
   const staticFileExtensions = /\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff|woff2|ttf|eot|webp|mp4|webm|pdf|txt|xml)$/i;
-  if (staticFileExtensions.test(pathname)) {
-    return context.next();
-  }
+  const isStaticFile = staticFileExtensions.test(pathname);
+  const isApi = pathname.startsWith('/api/');
+  const is404Page = pathname === '/404.html' || pathname === '/404';
+  const isHome = pathname === '/' || pathname === '/index.html';
 
-  // 2. 如果是 API 路由，直接放行
-  if (pathname.startsWith('/api/')) {
-    return context.next();
-  }
-
-  // 3. 如果请求 404.html 或 /404，返回 404 页面
-  if (pathname === '/404.html' || pathname === '/404') {
-    // 直接返回 404.html 的内容
-    return context.env.ASSETS.fetch(new URL('/404.html', url.origin));
-  }
-
-  // 4. 如果请求根路径或 index.html，直接返回
-  if (pathname === '/' || pathname === '/index.html') {
-    return context.next();
-  }
-
-  // 5. 对于所有其他路径（/projects, /about 等），返回 index.html
-  // 这样 Vue Router 就能接管路由
-  try {
+  // 1. Cloudflare Pages：存在 ASSETS 绑定，走 CF 的静态资源管道
+  if (context.env && context.env.ASSETS && typeof context.env.ASSETS.fetch === 'function') {
+    if (isStaticFile || isApi || isHome) {
+      return context.next();
+    }
+    if (is404Page) {
+      return context.env.ASSETS.fetch(new URL('/404.html', url.origin));
+    }
     return context.env.ASSETS.fetch(new URL('/index.html', url.origin));
-  } catch (error) {
-    // 如果出错，返回 404
-    return new Response('Not Found', { status: 404 });
   }
-}
 
+  // 2. EdgeOne Pages：无 ASSETS 绑定，通过 fetch 子请求获取静态资源
+  if (is404Page) {
+    return fetch(new URL('/404.html', url.origin).href);
+  }
+  if (isApi || isStaticFile || isHome) {
+    return fetch(new URL(pathname, url.origin).href);
+  }
+
+  // 3. 其余路径回退到 index.html，由前端路由接管
+  return fetch(new URL('/index.html', url.origin).href);
+}
