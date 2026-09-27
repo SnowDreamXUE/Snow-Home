@@ -132,6 +132,16 @@ export const useProjectsStore = defineStore('projects', {
                 demoUrl: null,
                 codeUrl: 'https://github.com/SnowDreamXUE/Snow-Tab',
                 featured: false
+            },
+            {
+                id: 14,
+                title: '小小修仙挂机机器人',
+                description: 'QQ 群聊游戏「小小修仙」的自动挂机机器人，纯规则驱动不依赖 LLM。支持状态驱动的每日流程、长任务重启恢复、验证码转人工、被动事件处理和坊市监控，WebSocket 断线自动重连',
+                technologies: ['Python', 'WebSocket', 'OneBot v11'],
+                category: ['Python'],
+                demoUrl: null,
+                codeUrl: 'https://github.com/SnowDreamXUE/xiaoxiaoxiuxian_guaji',
+                featured: false
             }
         ],
         categories: ['全部', '前端', '后端', 'Hexo', 'Electron', 'Python', 'Chrome扩展'],
